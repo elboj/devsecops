@@ -34,13 +34,13 @@ stages:
             condition: always()
             displayName: 'Publish Code Coverage'
             inputs:
-              summaryFileLocation: "$(System.DefaultWorkingDirectory)/test-results.xml"
-          - task: PublishBuildArtifacts@1
-            condition: always()
-            inputs:
-              PathtoPublish: "$(System.DefaultWorkingDirectory)/test-results.xml"
-              ArtifactName: "_drop"
-              publishLocation: "Container"
+              summaryFileLocation: "$(System.DefaultWorkingDirectory)/**/test-results.xml"
+          # - task: PublishBuildArtifacts@1
+          #   condition: always()
+          #   inputs:
+          #     PathtoPublish: "$(System.DefaultWorkingDirectory)/test-results.xml"
+          #     ArtifactName: "_drop"
+          #     publishLocation: "Container"
           # - publish: $(Build.ArtifactStagingDirectory)
           #   artifact: 'drop'
           #   displayName: 'Publish Artifact'
