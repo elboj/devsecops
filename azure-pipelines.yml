@@ -30,6 +30,11 @@ stages:
               echo "Running coverage on the project"
               npm run coverage
             displayName: 'Code Coverage'
+          - task: PublishCodeCoverageResults@2
+            condition: always()
+            displayName: 'Publish Code Coverage'
+            inputs:
+              summaryFileLocation: "$(System.DefaultWorkingDirectory)/test-results.xml"
           - task: PublishBuildArtifacts@1
             condition: always()
             inputs:
