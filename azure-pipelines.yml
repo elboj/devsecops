@@ -34,7 +34,7 @@ stages:
             condition: always()
             displayName: 'Publish Code Coverage'
             inputs:
-              summaryFileLocation: "$(System.DefaultWorkingDirectory)/**/test-results.xml"
+              summaryFileLocation: "$(System.DefaultWorkingDirectory)/**/cobertura-coverage.xml"
           # - task: PublishBuildArtifacts@1
           #   condition: always()
           #   inputs:
