@@ -1,19 +1,65 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
-- main
+  branches:
+    include:
+      - main
 
-pool:
-  vmImage: ubuntu-latest
+# Define the stages of the pipeline
+stages:
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+  # Build stage
+  - stage: Build
+    displayName: 'Build Stage'
+    jobs:
+      - job: BuildJob
+        displayName: 'Build Job'
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSource: 'spec'
+              versionSpec: '6.x'
+          - script: |
+              echo "Installing dependencies"
+              npm install
+            displayName: 'Install Dependencies'
+          - script: |
+              echo "Testing the project"
+              npm test
+            displayName: 'Code Coverage'
+          - script: |
+              echo "Running coverage on the project"
+              npm run coverage
+            displayName: 'Code Coverage'
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: "$(System.DefaultWorkingDirectory)/test-results.xml"
+              ArtifactName: "_drop"
+              publishLocation: "Container"
+          # - publish: $(Build.ArtifactStagingDirectory)
+          #   artifact: 'drop'
+          #   displayName: 'Publish Artifact'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+  # Test stage (conditional on successful build)
+  # - stage: Test
+  #   displayName: 'Test Stage'
+  #   dependsOn: Build
+  #   condition: succeeded()
+  #   jobs:
+  #     - job: TestJob
+  #       displayName: 'Run Tests'
+  #       pool:
+  #         vmImage: 'ubuntu-latest'
+  #       steps:
+  #         - script: |
+  #             echo "Running tests"
+  #             npm test
+  #           displayName: 'Run Unit Tests'
+
+  # # Deploy stage (conditional on successful tests)
+  # - stage: Deploy
+  #   displayName: 'Deploy Stage'
+  #   dependsOn: Test
+  #   condition: succeeded()
+  #   jobs:
+  #     - deployment: DeployApp
