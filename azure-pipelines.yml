@@ -26,35 +26,35 @@ stages:
             name: setVarsStep
             displayName: 'Set multiple environment variables'
 
-          # - task: NodeTaskRunnerInstaller@0
-          #   inputs:
-          #     nodeVersion: '16'
-          # - script: |
-          #     echo "Installing dependencies"
-          #     npm install
-          #   displayName: 'Install Dependencies'
-          # - script: |
-          #     echo "Testing the project"
-          #     npm test
-          #   displayName: 'Code Testing'
-          # - script: |
-          #     echo "Running coverage on the project"
-          #     npm run coverage
-          #   displayName: 'Code Coverage'
-          # - task: PublishCodeCoverageResults@2
-          #   condition: always()
-          #   displayName: 'Publish Code Coverage'
-          #   inputs:
-          #     summaryFileLocation: "$(System.DefaultWorkingDirectory)/**/cobertura-coverage.xml"
-          # - task: PublishBuildArtifacts@1
-          #   condition: always()
-          #   inputs:
-          #     PathtoPublish: "$(System.DefaultWorkingDirectory)/test-results.xml"
-          #     ArtifactName: "_drop"
-          #     publishLocation: "Container"
-          # - publish: $(Build.ArtifactStagingDirectory)
-          #   artifact: 'drop'
-          #   displayName: 'Publish Artifact'
+          - task: NodeTaskRunnerInstaller@0
+            inputs:
+              nodeVersion: '16'
+          - script: |
+              echo "Installing dependencies"
+              npm install
+            displayName: 'Install Dependencies'
+          - script: |
+              echo "Testing the project"
+              npm test
+            displayName: 'Code Testing'
+          - script: |
+              echo "Running coverage on the project"
+              npm run coverage
+            displayName: 'Code Coverage'
+          - task: PublishCodeCoverageResults@2
+            condition: always()
+            displayName: 'Publish Code Coverage'
+            inputs:
+              summaryFileLocation: "$(System.DefaultWorkingDirectory)/**/cobertura-coverage.xml"
+          - task: PublishBuildArtifacts@1
+            condition: always()
+            inputs:
+              PathtoPublish: "$(System.DefaultWorkingDirectory)/test-results.xml"
+              ArtifactName: "_drop"
+              publishLocation: "Container"
+          - publish: $(Build.ArtifactStagingDirectory)
+            artifact: 'drop'
+            displayName: 'Publish Artifact'
 
   # Test stage (conditional on successful build)
   # - stage: Test
