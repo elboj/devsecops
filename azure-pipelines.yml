@@ -25,12 +25,13 @@ stages:
           - script: |
               echo "Testing the project"
               npm test
-            displayName: 'Code Coverage'
+            displayName: 'Code Testing'
           - script: |
               echo "Running coverage on the project"
               npm run coverage
             displayName: 'Code Coverage'
           - task: PublishBuildArtifacts@1
+            condition: always()
             inputs:
               PathtoPublish: "$(System.DefaultWorkingDirectory)/test-results.xml"
               ArtifactName: "_drop"
