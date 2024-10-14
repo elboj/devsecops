@@ -16,11 +16,11 @@ app.use(cors())
 //     pass: process.env.MONGO_PASSWORD,
 
 mongoose.connect('mongodb+srv://supercluster.d83jj.mongodb.net/superData', { 
-    user: 'superuser',
-    pass: 'SuperPassword',
+    // user: 'superuser',
+    // pass: 'SuperPassword',
 // mongoose.connect(process.env.MONGO_URI, {
-//     user: process.env.MONGO_USERNAME,
-//     pass: process.env.MONGO_PASSWORD,
+    user: process.env.MONGO_USERNAME,
+    pass: process.env.MONGO_PASSWORD,
     useNewUrlParser: true,
     useUnifiedTopology: true
 }, function(err) {
