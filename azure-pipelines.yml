@@ -85,7 +85,7 @@ stages:
             cliProjectName: 'devsecops'
             cliSources: '.'
             extraProperties: |
-               sonar.branch.name=$(Build.SourceBranchName)
+              #  sonar.branch.name=$(Build.SourceBranchName)
                sonar.verbose=true
                sonar.language=js
 
