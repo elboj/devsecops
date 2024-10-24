@@ -89,8 +89,10 @@ stages:
                sonar.verbose=true
                sonar.language=js
 
-        - task: SonarQubeAnalyze@6
+        - task: SonarQubeAnalyze@7
           displayName: 'Run SonarQube analysis'
+          inputs:
+            jdkversion: 'JAVA_HOME_17_X64'
 
 
   # # Deploy stage (conditional on successful tests)
