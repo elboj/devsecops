@@ -72,7 +72,7 @@ stages:
     condition: succeeded()
     jobs:
       - job: SAST
-        displayName: 'SonarQube Testing'
+        displayName: 'SonarQube Analysis'
         pool:
           vmImage: 'ubuntu-latest'
         steps:
@@ -84,6 +84,7 @@ stages:
             cliProjectKey: 'devsecops'
             cliProjectName: 'devsecops'
             cliSources: '.'
+            extraProperties: 'sonar.branch.name=main'
 
 
   # # Deploy stage (conditional on successful tests)
