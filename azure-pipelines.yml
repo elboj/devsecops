@@ -66,20 +66,25 @@ stages:
             displayName: 'Publish Artifact'
 
   # Test stage (conditional on successful build)
-  # - stage: Test
-  #   displayName: 'Test Stage'
-  #   dependsOn: Build
-  #   condition: succeeded()
-  #   jobs:
-  #     - job: TestJob
-  #       displayName: 'Run Tests'
-  #       pool:
-  #         vmImage: 'ubuntu-latest'
-  #       steps:
-  #         - script: |
-  #             echo "Running tests"
-  #             npm test
-  #           displayName: 'Run Unit Tests'
+  - stage: Test
+    displayName: 'Test Stage'
+    dependsOn: Build
+    condition: succeeded()
+    jobs:
+      - job: SAST
+        displayName: 'SonarQube Testing'
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+        - task: SonarQubePrepare@7
+          inputs:
+            SonarQube: 'ado_sonarqube'
+            scannerMode: 'cli'
+            configMode: 'manual'
+            cliProjectKey: 'devsecops'
+            cliProjectName: 'devsecops'
+            cliSources: '.'
+
 
   # # Deploy stage (conditional on successful tests)
   # - stage: Deploy
