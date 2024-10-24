@@ -84,7 +84,10 @@ stages:
             cliProjectKey: 'devsecops'
             cliProjectName: 'devsecops'
             cliSources: '.'
-            extraProperties: 'sonar.branch.name=main'
+            extraProperties: |
+               sonar.branch.name=main
+               sonar.branch.target=main
+               sonar.verbose=true
 
 
   # # Deploy stage (conditional on successful tests)
