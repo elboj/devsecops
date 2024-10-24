@@ -84,10 +84,10 @@ stages:
             cliProjectKey: 'devsecops'
             cliProjectName: 'devsecops'
             cliSources: '.'
-            extraProperties: |
-              #  sonar.branch.name=$(Build.SourceBranchName)
-               sonar.verbose=true
-               sonar.language=js
+            # extraProperties: |
+            #   #  sonar.branch.name=$(Build.SourceBranchName)
+            #    sonar.verbose=true
+            #    sonar.language=js
 
         - task: SonarQubeAnalyze@7
           displayName: 'Run SonarQube analysis'
